@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Bubble_Sort
 {
@@ -6,7 +6,7 @@ namespace Bubble_Sort
     {
         static void Main(string[] args)
         {
-            int[] array = { 3, 0, 2, 5, -1, 4, 1 };
+            int[] array = {3,0,2,5,-1,4,1};
             int t;
             //Принтиране на масива преди сортиране
             Console.WriteLine("Original array :");
@@ -32,45 +32,72 @@ namespace Bubble_Sort
             foreach (int a in array)
                 Console.Write(a + " ");
             Console.Write("\n");
-            // Driver method to test binary search
-           
-                int[] arr = { 2, 3, 4, 10, 40 };
-                int n = arr.Length;
-                int x = 10;
+            //-------------------------------------------------------------
+            //Резултат от метод binary search 
+            int n = array.Length;
+            Console.WriteLine("Enter a number:");
+            //Въвеждаме от конзолата числото, което ще търсим в масива
+            int x = int.Parse(Console.ReadLine());
+            Console.WriteLine("Binary search result:");
+            int firstResult = BinarySearch(array, 0, n - 1, x);
 
-                int result = BinarySearch(arr, 0, n - 1, x);
+            if (firstResult == -1)
+            {
+                Console.WriteLine("Element not present");
+            }
+            else
+            {
+                Console.WriteLine("Element found at index " + firstResult);
+            }
+            //Резултат от метод линейно търсене
+            Console.WriteLine("Linear search result:");
+            int secondResult = search(array, x);
+            if (secondResult == -1)
+            {
+                Console.WriteLine("Element is not present in array");
+            }
+            else
+            {
+                Console.WriteLine("Element is present at index " + secondResult);
+            }
 
-                if (result == -1)
-                    Console.WriteLine("Element not present");
-                else
-                    Console.WriteLine("Element found at index "
-                                      + result);
-            
         }
         //Метод за двоично търсене
-        static int BinarySearch(int [] array, int l, int r, int x)
+        static int BinarySearch(int[] binArr, int l, int r, int x)
         {
             if (r >= l)
             {
                 int mid = l + (r - l) / 2;
                 //Проверява дали елемента е в средата
-                if (array[mid] == x)
+                if (binArr[mid] == x)
                     return mid;
                 //Проверява дали елемента е по-малък от средния и преминава наляво
-                if (array[mid] > x)
+                if (binArr[mid] > x)
                 {
-                    return BinarySearch(array, l, mid - 1, x);
+                    return BinarySearch(binArr, l, mid - 1, x);
                 }
                 //Ако е по- голям преминава надясно
-                else {
-                    return BinarySearch(array, mid + 1, r, x);
+                else
+                {
+                    return BinarySearch(binArr, mid + 1, r, x);
                 }
-                
+
             }
 
             //Ако елемента не съществува в масива
             return -1;
         }
-
+        //Метод за линейно търсене
+        public static int search(int[] arr, int x)
+        {
+            int n = arr.Length;
+            for (int i = 0; i < n; i++)
+            {
+                if (arr[i] == x)
+                    return i;
+            }
+            //Ако елемента не съществува в масива
+            return -1;
+        }
     }
 }
